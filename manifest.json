@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "CyberShield: Identity Manager",
+  "version": "3.0",
+  "description": "Scan Email-linked sessions and manage universal logout with real-time status.",
+  "permissions": [
+    "cookies",
+    "storage",
+    "tabs",
+    "alarms",
+    "notifications",
+    "history",
+    "browsingData"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

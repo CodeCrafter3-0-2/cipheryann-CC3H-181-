@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    :root {
+      --bg-color: #0f0f13;
+      --card-bg: #1a1a24;
+      --text-main: #ffffff;
+      --text-dim: #9494a5;
+      --accent-gradient: linear-gradient(90deg, #ff8c52, #ff5e7e);
+      --green-active: #2ecc71;
+      --blue-accent: #3498db;
+    }
+
+    body { 
+      width: 330px; 
+      padding: 20px; 
+      font-family: 'Inter', 'Segoe UI', sans-serif; 
+      background-color: var(--bg-color); 
+      color: var(--text-main);
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .header { text-align: center; margin-bottom: 25px; }
+    .logo-row { display: flex; align-items: center; justify-content: center; gap: 10px; }
+    h3 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+    .tagline { font-size: 11px; color: var(--text-dim); margin-top: 5px; }
+    
+    .status-indicator { 
+      font-size: 11px; color: var(--green-active); margin-top: 12px; 
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: rgba(46, 204, 113, 0.1); padding: 5px 15px; border-radius: 20px; width: fit-content; margin: 12px auto 0 auto;
+    }
+    .dot { height: 6px; width: 6px; background-color: var(--green-active); border-radius: 50%; box-shadow: 0 0 8px var(--green-active); }
+
+    .btn-main {
+      width: 100%; padding: 16px; border: none; border-radius: 14px;
+      background: var(--accent-gradient); color: white; font-weight: bold; font-size: 16px;
+      cursor: pointer; box-shadow: 0 4px 20px rgba(255, 94, 126, 0.3); transition: all 0.2s ease;
+    }
+    .btn-main:active { transform: scale(0.98); }
+    .btn-subtext { font-size: 10px; color: var(--text-dim); text-align: center; margin-top: 8px; margin-bottom: 25px; }
+
+    .menu-item {
+      background: var(--card-bg); border-radius: 12px; padding: 15px 16px;
+      margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;
+      border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: 0.2s;
+    }
+    .menu-item:hover { background: #22222e; }
+    .menu-content { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; }
+
+    /* Settings Panel */
+    #settingsPanel {
+      display: none; background: #15151e; padding: 15px; border-radius: 12px;
+      margin-bottom: 12px; border: 1px solid var(--blue-accent);
+    }
+    .timer-input {
+      width: 60px; background: #0f0f13; border: 1px solid #3e3e4a;
+      color: white; border-radius: 6px; padding: 5px; outline: none;
+    }
+
+    /* Switch */
+    .switch { position: relative; display: inline-block; width: 34px; height: 18px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3e3e4a; transition: .4s; border-radius: 34px; }
+    .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+    input:checked + .slider { background-color: var(--blue-accent); }
+    input:checked + .slider:before { transform: translateX(16px); }
+
+    /* Site List Display */
+    #siteList { max-height: 150px; overflow-y: auto; font-size: 11px; color: var(--text-dim); margin-top: 5px; }
+    .site-entry { padding: 4px 0; border-bottom: 1px solid #222; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo-row"><h3>CyberShield</h3></div>
+    <div class="tagline">Log out from all websites instantly</div>
+    <div class="status-indicator"><span class="dot"></span> Active sessions detected</div>
+  </div>
+
+  <button class="btn-main" id="panicBtn">Log Out Everywhere</button>
+  <div class="btn-subtext">Ends sessions across all websites securely</div>
+
+  <div class="menu-item" id="scanBtn">
+    <div class="menu-content"><span></span><span>Deep Search & Show List</span></div>
+    <span style="color: var(--text-dim);">›</span>
+  </div>
+  <div id="siteList"></div>
+
+  <div class="menu-item">
+    <div class="menu-content"><span></span><span>Privacy Shield</span></div>
+    <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+  </div>
+
+  <div class="menu-item" id="settingsBtn">
+    <div class="menu-content"><span></span><span>Settings</span></div>
+  </div>
+
+  <div id="settingsPanel">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <span style="font-size: 12px;">Auto-Logout (Mins):</span>
+      <input type="number" id="timerInput" class="timer-input" value="0">
+    </div>
+    <button id="saveSettings" style="width: 100%; padding: 8px; background: var(--blue-accent); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Save Timer</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
